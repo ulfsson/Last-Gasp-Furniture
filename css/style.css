@@ -19,7 +19,7 @@ article.itemlist {
 }
 
 article.itemlist table {
-    width: 30%;
+    width: 480px;
     border-collapse: collapse;
 }
 
@@ -32,7 +32,7 @@ article.itemlist table td {
 }
 
 article.itemlist hr {
-    width: 30%;
+    width: 480px;
     color: white;
 }
 
@@ -76,13 +76,38 @@ section#invoicetable {
     width: 100%;
 }
 
-div.invoice {
-    width: 30%;
-    margin: 0 auto;
-    margin-top: 25px;
-    /* background-color: #13335a */
+section#totals {
+    width: 100%;
 }
 
-div.invoice h3 {
+section#totals table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+section#totals table td {
+    padding: 5px;
+    text-align: left;
+}
+
+section#totals table tr + tr {
+    border-top: 1px dotted gray;
+}
+
+section#totals table td.price {
+    text-align: right;
+}
+
+
+div#invoicediv {
+    width: 480px;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: none;
+    text-align: center;
+}
+
+div#invoicediv h3 {
     text-align: center;
 }

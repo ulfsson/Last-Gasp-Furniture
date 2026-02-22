@@ -5,6 +5,8 @@ const STATEZONES = [
     [3, 6, 5, 4, 4, 4, 1, 1, 3, 3, 6, 5, 3, 2, 3, 4, 2, 4, 1, 2, 1, 3, 3, 3, 3, 5, 4, 5, 1, 1, 5, 1, 2, 4, 2, 4, 5, 2, 1, 2, 4, 3, 5, 5, 1, 2, 5, 2, 3, 5]
 ]
 
+const ZONESHIPPING = [0.00, 20.00, 30.00, 35.00, 45.00, 50.00]
+
 const ITEMPRICES = {
     "chair": 25.50,
     "recliner": 37.75,
@@ -97,22 +99,47 @@ function buyNow() {
             </tr>`
         }
 
+        itemInvoiceTable += "</table>";
+
+        // Oh my god this is hideous.
+        let shippingPrice = itemTotal > 100.00 ? 0.00 : ZONESHIPPING[STATEZONES[1][STATEZONES[0].indexOf(shippingState)] - 1];
+        let subTotal = itemTotal + shippingPrice;
+        let tax = subTotal * 0.15;
+        let invoiceTotal = subTotal + tax;
+
         let itemInvoiceTotals =
         `
         <table>
             <tr>
                 <td>Item Total:</td>
-                <td>$${itemTotal.toFixed(2)}</td>
+                <td class="price">$${itemTotal.toFixed(2)}</td>
             </tr>
-
             <tr>
                 <td>Shipping to ${shippingState}:</td>
-                <td>$$
-
+                <td class="price">$${shippingPrice.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td>Subtotal:</td>
+                <td class="price">$${subTotal.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td>Tax:</td>
+                <td class="price">$${tax.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td>Invoice Total:</td>
+                <td class="price">$${invoiceTotal.toFixed(2)}</td>
+            </tr>
+        </table>
         `;
 
         document.getElementById("invoicetable").innerHTML = itemInvoiceTable;
-        document.getElementById("invoice").style.display = "grid";
+        document.getElementById("totals").innerHTML = itemInvoiceTotals;
+        document.getElementById("invoicediv").style.display = "block";
     }
+}
 
+
+function shopAgain() {
+    document.getElementById("invoicediv").style.display = "none";
 }
